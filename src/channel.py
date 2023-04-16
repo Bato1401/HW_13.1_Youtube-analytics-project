@@ -54,4 +54,30 @@ class Channel:
         """Возвращает название и ссылку на канал"""
         return f"{self.title} ({self.url})"
 
+    def __add__(self, other):
+        """Возвращает сложенное значение количества подписчиков двух каналов"""
+        return int(self.subscriberCount) + int(other.subscriberCount)
 
+    def __sub__(self, other):
+        """Возвращает разность подписчиков канала1 и канала2"""
+        return int(self.subscriberCount) - int(other.subscriberCount)
+
+    def __gt__(self, other):
+        """Возвращает True если self больше"""
+        return int(self.subscriberCount) > int(other.subscriberCount)
+
+    def __ge__(self, other):
+        """Возвращает True если self >= other"""
+        return int(self.subscriberCount) >= int(other.subscriberCount)
+
+    def __lt__(self, other):
+        """Возвращает True если self меньше"""
+        return int(self.subscriberCount) < int(other.subscriberCount)
+
+    def __le__(self, other):
+        """Возвращает True если self <= other"""
+        return int(self.subscriberCount) <= int(other.subscriberCount)
+
+    def __eq__(self, other):
+        """Возвращает True если self равно other"""
+        return int(self.subscriberCount) == int(other.subscriberCount)
