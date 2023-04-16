@@ -22,7 +22,7 @@ class Channel:
 
     def __get_info(self):
         """Выводит в консоль информацию о канале."""
-        channel = youtube.channels( ).list(id=self.channel_id, part='snippet,statistics').execute()
+        channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
         return channel
 
     def print_info(self) -> None:
@@ -47,7 +47,11 @@ class Channel:
             'videoCount': self.video_count,
             'viewCount': self.viewCount
         }
-
         with open(file_name, 'w') as file:
             json.dump(data, file)
+
+    def __str__(self):
+        """Возвращает название и ссылку на канал"""
+        return f"{self.title} ({self.url})"
+
 
