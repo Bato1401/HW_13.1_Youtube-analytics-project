@@ -11,7 +11,7 @@ class Channel:
     """Класс для ютуб-канала"""
 
     def __init__(self, channel_id: str) -> None:
-        """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
+        """Экземпляр инициализируется по id канала. Дальше все данные будут подтягиваться по API."""
         self.channel_id = channel_id
         self.title = self.__get_info()['items'][0]['snippet']['title']  # название канала
         self.description = self.__get_info()['items'][0]['snippet']['description']  # описание канала
@@ -21,7 +21,7 @@ class Channel:
         self.viewCount = self.__get_info()['items'][0]['statistics']['viewCount']  # общее количество просмотров
 
     def __get_info(self):
-        """Выводит в консоль информацию о канале."""
+        """Возвращает информацию о канале."""
         channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
         return channel
 
