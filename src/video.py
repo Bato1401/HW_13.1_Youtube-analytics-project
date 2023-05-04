@@ -14,7 +14,7 @@ class Video:
         self.comment_count: int = self.get_info_video()['items'][0]['statistics']['commentCount']
 
     def get_info_video(self) -> None:
-        """Получает данные по play-листам канала"""
+        """Получает данные по видео"""
         video_response = youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
                                                id=self.video_id
                                                ).execute()
@@ -32,15 +32,16 @@ class Video:
 
 
 class PLVideo(Video):
-    """Класс получения id плей-листа с ютуб-канала"""
+    """Класс для получения id плей-листа с ютуб-канала"""
 
     def __init__(self, video_id, playlist_id):
         super().__init__(video_id)
         self.playlist_id = playlist_id  # id плейлиста
 
     def get_playlist_id(self):
+        """Метод получения данных о видео в плей-листе"""
         playlist_videos = youtube.playlistItems().list(playlistId=self.playlist_id,
-                                                       part='contentDetails',
+                                                       part='contentDetails, snippet',
                                                        maxResults=50,
                                                        ).execute()
         return playlist_videos
@@ -52,3 +53,4 @@ class PLVideo(Video):
                f'Количество лайков - {self.like_count},\n' \
                f'Количество комментариев - {self.comment_count},\n' \
                f'id плейлиста - {self.playlist_id}.'
+
