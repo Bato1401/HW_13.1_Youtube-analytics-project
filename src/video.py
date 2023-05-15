@@ -1,5 +1,5 @@
 import json
-
+from googleapiclient.errors import HttpError
 from src.channel import youtube
 
 
@@ -8,10 +8,17 @@ class Video:
 
     def __init__(self, video_id):
         self.video_id = video_id
-        self.video_title: str = self.get_info_video()['items'][0]['snippet']['title']
-        self.view_count: int = self.get_info_video()['items'][0]['statistics']['viewCount']
-        self.like_count: int = self.get_info_video()['items'][0]['statistics']['likeCount']
-        self.comment_count: int = self.get_info_video()['items'][0]['statistics']['commentCount']
+        try:
+            self.video_title: str = self.get_info_video()['items'][0]['snippet']['title']
+            self.view_count: int = self.get_info_video()['items'][0]['statistics']['viewCount']
+            self.like_count: int = self.get_info_video()['items'][0]['statistics']['likeCount']
+            self.comment_count: int = self.get_info_video()['items'][0]['statistics']['commentCount']
+        except Exception:
+            print('что то не так с запросом')
+            self.video_title = None
+            self.view_count = None
+            self.like_count = None
+            self.comment_count = None
 
     def get_info_video(self) -> None:
         """Получает данные по видео"""
